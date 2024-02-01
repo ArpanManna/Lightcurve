@@ -23,7 +23,7 @@ contract NonVulnerableContract{
         locked = false;
     }
     event Deposit(address indexed depositor, uint amount);
-    event Wihdraw(address indexed addr, uint amount);
+    event Withdraw(address indexed addr, uint amount);
     event OwnerUpdated(address indexed oldOwner, address indexed newOwner);
     
     function deposit() public payable{
@@ -36,7 +36,7 @@ contract NonVulnerableContract{
         balances[msg.sender] -= amount;
         (bool success, ) = msg.sender.call{value: amount}("");
         require(success, "Transfer failed");
-        emit Wihdraw(msg.sender, amount);
+        emit Withdraw(msg.sender, amount);
     }
     function transferOwnership(address newOwner) public  onlyOwner{
         require(newOwner != address(0), "Null address cannot be owner");

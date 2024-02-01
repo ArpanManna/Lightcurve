@@ -22,19 +22,21 @@ contract VulnerableContract{
         locked = false;
     }
     event Deposit(address indexed depositor, uint amount);
-    event Wihdraw(address indexed addr, uint amount);
+    event Withdraw(address indexed addr, uint amount);
     event OwnerUpdated(address indexed oldOwner, address indexed newOwner);
     
     function deposit() public payable{
         balances[msg.sender] += msg.value;
         emit Deposit(msg.sender, msg.value);
     }
+
+    // use transfer instead of low level calls
     function withdraw(uint256 amount) public nonReentrant{
         require(balances[msg.sender] >= amount, "Insufficient balance");
         require(amount > 0, "Transfer amount is too low!");
         balances[msg.sender] -= amount;
         payable(msg.sender).transfer(amount);
-        emit Wihdraw(msg.sender, amount);
+        emit Withdraw(msg.sender, amount);
     }
     function transferOwnership(address newOwner) public  onlyOwner{
         require(newOwner != address(0), "Null address cannot be owner");
