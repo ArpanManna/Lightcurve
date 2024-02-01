@@ -47,25 +47,26 @@ node deployMultichainAccount.js
 
 It will deploy the multichain smart Account with same counterfactual address for Polygon Mumbai, Arbitrum Sepolia testnet, Optimism Goerli, Linea and Base Goerli testnet.
 
-### Deployed contract address
+## Deployed contract address
 ```
 0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC
 ```
 ### Contract Deployment Tranactions
-```
-Polygon Mumbai Transaction: https://mumbai.polygonscan.com/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC#internaltx
-Arbitrum Sepolia Transaction: https://sepolia.arbiscan.io/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC#internaltx
-Optimism Goerli Transaction: https://goerli-optimism.etherscan.io/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC#internaltx
-Linea Goerli Transaction: https://explorer.goerli.linea.build/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC/internal-transactions#address-tabs
-Base Goerli Transaction: https://goerli.basescan.org/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC#internaltx
+
+1. Polygon Mumbai Transaction: https://mumbai.polygonscan.com/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC#internaltx
+2. Arbitrum Sepolia Transaction: https://sepolia.arbiscan.io/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC#internaltx
+3. Optimism Goerli Transaction: https://goerli-optimism.etherscan.io/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC#internaltx
+4. Linea Goerli Transaction: https://explorer.goerli.linea.build/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC/internal-transactions#address-tabs
+5. Base Goerli Transaction: https://goerli.basescan.org/address/0xED0Bcf64F297427DEaDc7dA7CFa5b7A9D899dDeC#internaltx
+
 ### NFT mint transaction Hasees
-```
-Polygon Mumbai Transaction: https://mumbai.polygonscan.com/tx/0x83a2e1c8f094e6c42eb037c7560f66639a1ed98e6c634f1e6655c8386048b1e6
-Arbitrum Sepolia Transaction: https://sepolia.arbiscan.io/tx/0x4d5b8eba242e8a7d11d496e880a8d86a1fb252f0358963205dfa1e57072b4bc3
-Optimism Goerli Transaction: https://goerli-optimism.etherscan.io/tx/0xe166f4f00ffa050bfd1ddbca2c368df3c7b917d1091cfb37b98307220ca4564e
-Linea Goerli Transaction: https://explorer.goerli.linea.build/tx/0xd59b1496abcff9157ad76d30b766e2c181821c1f7a7d472756bcbea35ccb9600
-Base Goerli Transaction: https://goerli.basescan.org/tx/0x1a7f5caa094b9ea46b65ccfb09c61fc465ca0bc580d65813969647fefeabb8f8
-```
+
+1. Polygon Mumbai Transaction: https://mumbai.polygonscan.com/tx/0x83a2e1c8f094e6c42eb037c7560f66639a1ed98e6c634f1e6655c8386048b1e6
+2. Arbitrum Sepolia Transaction: https://sepolia.arbiscan.io/tx/0x4d5b8eba242e8a7d11d496e880a8d86a1fb252f0358963205dfa1e57072b4bc3
+3. Optimism Goerli Transaction: https://goerli-optimism.etherscan.io/tx/0xe166f4f00ffa050bfd1ddbca2c368df3c7b917d1091cfb37b98307220ca4564e
+4. Linea Goerli Transaction: https://explorer.goerli.linea.build/tx/0xd59b1496abcff9157ad76d30b766e2c181821c1f7a7d472756bcbea35ccb9600
+5. Base Goerli Transaction: https://goerli.basescan.org/tx/0x1a7f5caa094b9ea46b65ccfb09c61fc465ca0bc580d65813969647fefeabb8f8
+
 
 ## Coding2 (part 2)
 
