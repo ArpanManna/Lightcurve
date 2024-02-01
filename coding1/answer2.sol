@@ -2,10 +2,10 @@
 
 pragma solidity >=0.8.2 <0.9.0;
 
-contract VulnerableContract{
+contract NonVulnerableContract{
     mapping(address => uint256) public balances;
     address public owner;
-    bool internal locked;
+    bool internal locked;     
     modifier onlyOwner{
         require(msg.sender == owner, "Not the owner");
         _;
@@ -15,6 +15,7 @@ contract VulnerableContract{
         owner = msg.sender;
     }
 
+    // non-reentrant modifier prevents further withdrawl
     modifier nonReentrant{
         require(!locked, "No reentranct");
         locked = true;

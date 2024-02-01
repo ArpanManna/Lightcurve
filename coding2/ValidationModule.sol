@@ -24,8 +24,8 @@ contract ValidationModule is BaseAuthorizationModule {
         bool isEnabled;             // keep track of contract Initializaion
     }
 
-    mapping(address => Tx) internal _transactionLimits;
-    mapping(address => mapping(address => uint)) internal _spendingLimits;
+    mapping(address => Tx) internal _transactionLimits;   // keep track of transaction count of smart Accounts
+    mapping(address => mapping(address => uint)) internal _spendingLimits;   // (smart Account => (token address => spend limits))
 
     error AlreadyInitedForSmartAccount(address smartAccount);
 
@@ -45,7 +45,29 @@ contract ValidationModule is BaseAuthorizationModule {
         return address(this);
     }
 
+    function validateUserOp(UserOperation calldata userOp, bytes32 userOpHash) external view virtual override returns (uint256){
+        // in the userOp.signature field  append the moduleSignature 
 
+        // extract the moduleSignature
+        (bytes memory moduleSignature, ) = abi.decode(userOp.signature, (bytes, address));
+        // extract token address to spend and transaction amount
+        (address token, uint256 txAmount) = abi.decode(moduleSignature, (address, uint256));
+
+        validateTransactionCounts(userOp.sender);
+        validateSpendLimit(userOp.sender, token, txAmount);
+
+        // implement _verifySignature as per the module functionality
+        if (_verifySignature(userOpHash, moduleSignature, userOp.sender)) {
+            return VALIDATION_SUCCESS;
+        }
+        return SIG_VALIDATION_FAILED;
+    }
+
+    /**
+        smart Account can call this function to set their spend limits for a partcular token.
+        If spend limit is already enabled smart Accounts can update (increase/ decrease) their limits
+        Integer overflow/underflow is handled by solidty (compiler version >= 0.8.2)
+    */
     function setSpendLimit( address smartAccount, address tokenAddress, uint256 amount) public {
         require(amount > 0, "Invalid amount");
         if(_spendingLimits[smartAccount][tokenAddress].isEnabled){
@@ -59,7 +81,10 @@ contract ValidationModule is BaseAuthorizationModule {
         }
     }
 
-
+    /**
+        smart Account can call the function _updateLimit() to increase/decrease their spend limits for a partcular token.
+        Also adjust the available limit to spend
+    */
     function _updateLimit(address smartAccount, address tokenAddress, uint256 _limit) {
         _spendingLimits storage spendLimit = _spendingLimits[smartAccount][tokenAddress];
         uint spendAdded = _limit - spendLimit.limit;
@@ -103,27 +128,10 @@ contract ValidationModule is BaseAuthorizationModule {
             txLimit.resetTime = timestamp + ONE_DAY;
         }
         require(txLimit.txAvailable <= txLimit.limit, "Exceed daily limit");
-        // decrement `available`
+        // decrement `available transaction count`
         txLimit.txAvailable -= 1;
     }
 
-    function validateUserOp(UserOperation calldata userOp, bytes32 userOpHash) external view virtual override returns (uint256){
-        // in the userOp.signature field  append the moduleSignature with
-        // the Validation Module address
-
-        // extract the moduleSignature
-        (bytes memory moduleSignature, ) = abi.decode(userOp.signature, (bytes, address));
-        (address token, uint256 txAmount) = abi.decode(moduleSignature, (address, uint256));
-
-        validateTransactionCounts(userOp.sender);
-        validateSpendLimit(userOp.sender, token, txAmount);
-
-        // implement _verifySignature as per the module functionality
-        if (_verifySignature(userOpHash, moduleSignature, userOp.sender)) {
-            return VALIDATION_SUCCESS;
-        }
-        return SIG_VALIDATION_FAILED;
-    }
 
 
     function _verifySignature(
